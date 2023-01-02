@@ -1,0 +1,61 @@
+.login_contentWrap {
+    margin-top: 31.8vh;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 53vw;
+    z-index: 1;
+}
+
+.login_inputTitle {
+    font-size: 1.2vw;
+	font-weight: bold;
+	color: #262626;
+    margin-bottom: 0.3vh;
+}
+
+.login_inputWrap {
+    display: flex;
+    border-radius: 10vh;
+    padding: 1.2vh;
+    margin-top: 0.3vh;
+    background-color: white;
+    border: 1px solid #e2e0e0;
+    width: 20.5vw;
+    height: 2.3vh;
+    box-shadow: 0.2vh 0.2vh 0.2vh 0.2vh rgba(89, 89, 89, 0.565);
+}
+
+.login_inputWrap:focus-within {
+    border: 1px solid #6387ff;
+}
+
+.login_input {
+    width: 20vw;
+    outline: none;
+	border: none;
+    height: 2.25vh;
+    font-size: 1vw;
+	font-weight: 500;
+}
+
+.login_input::placeholder {
+    color: #dadada;
+}
+
+.login_find {
+    font-size: 0.8vw;
+    display: flex;
+    justify-content: flex-end;
+    position: static;
+    margin-top: 2vh;
+    margin-right: 0.5vw;
+}
+
+.login_errorMessageWrap {
+    margin-top: 0.5vh;
+    color: #ef0000;
+    font-size: 0.8vw;
+    height: 0.1vh;
+    margin-left: 1vh;
+}

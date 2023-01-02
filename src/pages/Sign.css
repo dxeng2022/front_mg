@@ -1,0 +1,23 @@
+/* .signBox {
+    height: 100vh;
+    width: 100vh;
+    padding: 0 0.2vw;
+
+    left: 50%;
+    transform: translate(-50%, 10%);
+
+    background-color: #fffffff3;
+
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-top: 3vh;
+    font-size: 43px;
+    font-weight: bold;
+    color: #262626;
+    text-align: center;
+    white-space: nowrap;
+} */
