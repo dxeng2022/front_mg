@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import FindEmail from "./FindEmail";
-// import FindPw from "./FindPw";
+import FindPw from "./FindPw";
 
 function Main() {
 
@@ -13,7 +13,7 @@ function Main() {
             <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/findemail" element={<FindEmail />} />
-                    {/* <Route path="/findpw" element={<FindPw />} /> */}
+                    <Route path="/findpw" element={<FindPw />} />
             </Routes>
 
             <div className="main_box">
