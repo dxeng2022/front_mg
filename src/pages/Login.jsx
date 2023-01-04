@@ -83,6 +83,9 @@ function Login() {
     
     return (
         <div className="login_contentWrap">
+
+            <div className='login_tab'>로 그 인</div>
+
             <div className="login_inputTitle">이메일</div>
                 <div className="login_inputWrap">
                     <input
@@ -99,7 +102,7 @@ function Login() {
             )}
             </div>
 
-            <div style={{ marginTop: "26px" }} className="login_inputTitle">
+            <div className="login_inputTitle">
             비밀번호
             </div>
             <div className="login_inputWrap">
@@ -122,7 +125,6 @@ function Login() {
             </div>
             
             <div className='login_buttons'>
-                <div>
                     <Button
                         onClick={onClickConfirmButton} 
                         disabled={notAllow}
@@ -132,17 +134,14 @@ function Login() {
                         sx={{
                             backgroundColor:'#4ec6e1', 
                             height: '4.5vh', 
-                            width: '22vw', 
+                            width: '23vw', 
                             borderRadius:30,
                             fontSize: '1.8vw',
                             fontWeight: 600,
-                            mt: '6vh',
                             '&:hover': {backgroundColor: '#6ba3af'}}}>
                     로 그 인
                     </Button>
-                </div>
 
-                <div>
                     <Button
                         onClick={()=>{ navigate('/Sign') }}
                         type="submit" 
@@ -150,7 +149,7 @@ function Login() {
                         sx={{
                             backgroundColor:'#7ccc46', 
                             height: '4.5vh', 
-                            width: '22vw',
+                            width: '23vw',
                             borderRadius:30,
                             fontSize: '1.8vw',
                             fontWeight: '600',
@@ -159,7 +158,6 @@ function Login() {
                         }}>
                         회 원 가 입
                     </Button>
-                </div>
             </div>    
         </div>    
     )
