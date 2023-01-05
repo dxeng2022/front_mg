@@ -1,11 +1,73 @@
 import './FindPw.css';
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function FindPw() {
 
     const navigate = useNavigate();
+
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [birth, setBirth] = useState('');
+
+    const [emailValid, setEmailValid] = useState(false);
+    const [nameValid, setNameValid] = useState(false);
+    const [phoneValid, setPhoneValid] = useState(false);
+    const [birthValid, setBirthValid] = useState(false);
+    const [notAllow, setNotAllow] = useState(true);
+
+    useEffect(() => {
+        if(nameValid && phoneValid && birthValid) {
+        setNotAllow(false);
+        return;
+        }
+        setNotAllow(true);
+    }, [nameValid, phoneValid, birthValid]);
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+        const regex = 
+        //eslint-disable-next-line
+        /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        if (regex.test(e.target.value)) {
+        setEmailValid(true);
+        } else {
+        setEmailValid(false);
+        }
+    };
+
+    const handleName = (e) => {
+        setName(e.target.value);
+        const regex = 
+        /^[가-힣]{2,4}$/;
+        if (regex.test(e.target.value)) {
+        setNameValid(true);
+        } else {
+        setNameValid(false);
+        }
+    };
+
+    const handlePhone = (e) => {
+        setPhone(e.target.value);
+        const regex = 
+        /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+        if (regex.test(e.target.value)) {
+        setPhoneValid(true);
+        } else {
+        setPhoneValid(false);
+        }
+    };
+
+    const handleBirth = (e) => {
+        setBirth(e.target.value);
+        if (e.target.value) {
+        setBirthValid(true);
+        } else {
+        setBirthValid(false);
+        }
+    };
 
 
     return (
@@ -22,7 +84,15 @@ function FindPw() {
                 <input
                     className="findpw_input"
                     type="text"
-                    placeholder=" test@gmail.com "/>
+                    placeholder=" test@gmail.com "
+                    value={email}
+                    onChange={handleEmail}
+                    />
+            </div>
+            <div className="findpw_errorMessageWrap">
+            {!emailValid && email.length > 0 && (
+                <div>올바른 이메일을 입력해주세요.</div>
+            )}
             </div>
 
             <div className="findpw_inputName">이름</div>
@@ -30,7 +100,15 @@ function FindPw() {
                 <input
                     className="findpw_input"
                     type="text"
-                    placeholder=" 3~4 글자 이름을 입력해주세요. "/>
+                    placeholder=" 3~4 글자 이름을 입력해주세요. "
+                    value={name}
+                    onChange={handleName} 
+                    />
+            </div>
+            <div className="findpw_errorMessageWrap">
+            {!nameValid && name.length > 0 && (
+                <div>올바른 이름을 입력해주세요.</div>
+            )}
             </div>
 
             <div className="findpw_inputName">전화번호</div>
@@ -38,7 +116,15 @@ function FindPw() {
                 <input
                     className="findpw_input"
                     type="text"
-                    placeholder=" '-' 을 제외한 10~11자리 입력해주세요. " />
+                    placeholder=" '-' 을 제외한 10~11자리 입력해주세요. "
+                    value={phone}
+                    onChange={handlePhone}
+                    />
+            </div>
+            <div className="findpw_errorMessageWrap">
+            {!phoneValid && phone.length > 0 && (
+                <div>올바른 전화번호를 입력해주세요.</div>
+            )}
             </div>
 
             <div className="findpw_inputName">생년월일</div>
@@ -47,7 +133,10 @@ function FindPw() {
                     className="findpw_input"
                     type="date"
                     min="1950-01-01"
-                    max="2002-12-31" />
+                    max="2002-12-31"
+                    value={birth}
+                    onChange={handleBirth} 
+                    />
             </div>
 
 
@@ -69,6 +158,7 @@ function FindPw() {
                 </Button>
 
                 <Button
+                    disabled={notAllow}
                     className="nextButton"
                     type="submit" 
                     variant="contained" 
