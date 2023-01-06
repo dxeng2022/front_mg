@@ -69,6 +69,36 @@ function FindPw() {
         }
     };
 
+    const onClickConfirmButton = () => {
+
+        const newBirth = birth.replace(/-/g, "")
+
+        let details = {
+            'email': email,
+            'name': name,
+            'phone1': phone,
+            'birth' : newBirth
+        };
+
+        fetch("http://192.168.0.157:9090" + "/find-pw", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            body: JSON.stringify(details)
+        })
+            .then(res => {
+                console.log(1, res)
+                //eslint-disable-next-line
+                if (res.status === 200) {
+                    alert(' 회원님의 이메일로 임시비밀번호를 발송했습니다. ');
+                } 
+                else {
+                    alert(" 일치한 정보가 없습니다. ");
+                }
+            })
+    }
+
 
     return (
         <div className='findpw_box'>
@@ -158,6 +188,7 @@ function FindPw() {
                 </Button>
 
                 <Button
+                    onClick={onClickConfirmButton}
                     disabled={notAllow}
                     className="nextButton"
                     type="submit" 

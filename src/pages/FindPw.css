@@ -24,7 +24,7 @@
     font-size: 1.2vw;
 	font-weight: bold;
 	color: #262626;
-    margin-top: 1.5vh;
+    margin-top: 1.3vh;
     margin-bottom: 0.3vh;
 }
 
@@ -60,15 +60,15 @@
 }
 
 .findpw_buttons {
-    margin-top: 1.8vh;
+    margin-top: 1.7vh;
     display: flex;
     justify-content: space-around;
 }
 
 .findpw_errorMessageWrap {
-    margin-top: 0.5vh;
+    margin-top: 0.2vh;
     color: #ef0000;
-    font-size: 0.8vw;
+    font-size: 0.6vw;
     height: 0.1vh;
     margin-left: 1vh;
 }
