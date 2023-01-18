@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import SignPolicy from "./SignPolicy.jsx";
+import SignUp from "./SignUp.jsx";
 
 function Sign() {
 
@@ -13,7 +14,8 @@ function Sign() {
                 </div>
 
                 <Routes>
-                    <Route path="/" element={<SignPolicy />} />
+                  <Route path="/" element={<SignPolicy />} />
+                  <Route path="/signup" element={<SignUp />} />
                 </Routes>
 
             </div>
