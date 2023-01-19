@@ -29,6 +29,25 @@ function SignUp() {
   const [birthValid, setBirthValid] = useState(false);
   const [sexValid, setSexValid] = useState(false);
 
+  const [notAllow, setNotAllow] = useState(true);
+
+
+  useEffect(() => {
+    if(emailValid === true) {
+    setNotAllow(false);
+    return;
+    }
+    setNotAllow(true);
+  }, [emailValid]);
+
+  useEffect(() => {
+    if(pw_confirm === pw) {
+    setPw_confirmValid(true);
+    } else {
+    setPw_confirmValid(false);
+    }
+    // console.log(pw_confirm)
+  }, [pw_confirm, pw])
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -64,7 +83,7 @@ function SignUp() {
   const handleName = (e) => {
     setName(e.target.value);
     const regex = 
-    /^[가-힣a-zA-Z]{2,10}$/; 
+    /^[가-힣a-zA-Z]{2,10}$/;
     if (regex.test(e.target.value)) {
     setNameValid(true);
     } else {
@@ -126,6 +145,34 @@ function SignUp() {
   };
 
 
+  const checkButton = () => {
+
+    let details = {
+        'email': email,
+    };
+
+    //eslint-disable-next-line
+    fetch("http://13.125.122.151:9090" + "/check-dupl", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(details)
+    })
+        .then(res => {
+          console.log(1, res)
+          //eslint-disable-next-line
+          if (res.status === 200) {
+            alert('사용 중인 이메일입니다.\n다른 이메일을 사용해주세요.');
+          } 
+          else {
+            alert("사용 가능한 이메일입니다.\n번호발송을 눌러 인증을 진행해주세요.");
+            setNotAllow(true);
+          }
+        })
+  }
+
+
   return (
     <div className="signup_box">
 
@@ -155,6 +202,8 @@ function SignUp() {
               </div>
 
               <Button
+                disabled={notAllow}
+                onClick={checkButton}
                 type="submit" 
                 variant="contained"
                 sx={{
@@ -189,7 +238,7 @@ function SignUp() {
                 type="submit" 
                 variant="contained"
                 sx={{
-                    backgroundColor:'#7ccc46', 
+                    backgroundColor:'#4ec6e1', 
                     whiteSpace: 'nowrap',
                     height: '4.5vh', 
                     width: '6.4vw', 
@@ -197,7 +246,7 @@ function SignUp() {
                     fontSize: '1vw',
                     fontWeight: 600,
                     ml: '1vw',
-                    '&:hover': {backgroundColor: '#7c9a67'}}}>
+                    '&:hover': {backgroundColor: '#6ba3af'}}}>
                 번호발송
               </Button>
               <Button

@@ -60,7 +60,7 @@ function Login() {
 
         console.log(formBody)
         //eslint-disable-next-line
-        fetch("http://192.168.0.157:9090" + "/login", {
+        fetch("http://13.125.122.151:9090" + "/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"

@@ -80,7 +80,7 @@ function FindPw() {
             'birth' : newBirth
         };
 
-        fetch("http://192.168.0.157:9090" + "/find-pw", {
+        fetch("http://13.125.122.151:9090" + "/find-pw", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"
