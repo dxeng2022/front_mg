@@ -30,7 +30,19 @@ function SignUp() {
   const [sexValid, setSexValid] = useState(false);
 
   const [notAllow, setNotAllow] = useState(true);
+  const [confirm, setConfirm] = useState(true);
+  const [check, setCheck] = useState();
+  const [auth, setAuth] = useState(true);
+  const [authRead, setAuthRead] = useState();
+  const [complete, setComplete] = useState(true);
 
+  useEffect(() => {
+    if(notAllow && confirm && auth && pwValid && pw_confirmValid && nameValid && phoneValid && birthValid && sexValid && organizationValid && jobValid) {
+    setComplete(false);
+    return;
+    }
+    setComplete(true);
+}, [notAllow, confirm, auth, pwValid, pw_confirmValid, nameValid, phoneValid, birthValid, sexValid, organizationValid, jobValid]);
 
   useEffect(() => {
     if(emailValid === true) {
@@ -74,16 +86,31 @@ function SignUp() {
 
   const handlePw_confirm = (e) => {
     setPw_confirm(e.target.value);
+    // if ((e.target.value) === pw) {
+    //   // if (Boolean((e.target.value) === pw) && setPwValid )
+    // setPw_confirmValid(true);
+    // } else {
+    // setPw_confirmValid(false);
+    // }
   };
 
   const handleAuthCode = (e) => {
     setAuthCode(e.target.value);
   }
 
+  // const handleAuthCode = (e) => {
+  //   setAuthCode(e.target.value);
+  //   if (e.target.value) {
+  //   setauthCodeValid(true);
+  //   } else {
+  //   setauthCodeValid(false);
+  //   }
+  // };
+
   const handleName = (e) => {
     setName(e.target.value);
     const regex = 
-    /^[가-힣a-zA-Z]{2,10}$/;
+    /^[가-힣a-zA-Z]{2,20}$/; 
     if (regex.test(e.target.value)) {
     setNameValid(true);
     } else {
@@ -144,7 +171,6 @@ function SignUp() {
     }
   };
 
-
   const checkButton = () => {
 
     let details = {
@@ -163,11 +189,104 @@ function SignUp() {
           console.log(1, res)
           //eslint-disable-next-line
           if (res.status === 200) {
-            alert('사용 중인 이메일입니다.\n다른 이메일을 사용해주세요.');
+            alert('사용 중인 이메일입니다. \n다른 이메일을 사용해주세요. ');
           } 
           else {
-            alert("사용 가능한 이메일입니다.\n번호발송을 눌러 인증을 진행해주세요.");
+            alert("사용 가능한 이메일입니다. \n번호발송을 눌러 인증을 진행해주세요. ");
+            setCheck(true);
+            setConfirm(false);
             setNotAllow(true);
+          }
+        })
+  }
+
+  const confirmButton = () => {
+
+    let details = {
+        'email': email,
+    };
+
+    //eslint-disable-next-line
+    fetch("http://13.125.122.151:9090" + "/signup-auth", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(details)
+    })
+        .then(res => {
+          console.log(1, res)
+          //eslint-disable-next-line
+          if (res.status === 200) {
+            alert('회원님의 이메일로 인증번호를 발송하였습니다. ');
+            setAuth(false);
+          }
+          else {
+            alert("ContactUs로 문의바랍니다. ");
+          }
+        })
+  }
+
+  const authButton = () => {
+
+    let details = {
+        'authCode': authCode,
+    };
+    
+    //eslint-disable-next-line
+    fetch("http://13.125.122.151:9090" + "/signup-authcheck", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(details)
+    })
+        .then(res => {
+          console.log(1, res)
+          //eslint-disable-next-line
+          if (res.status === 200) {
+            alert('이메일 인증이 완료되었습니다. ');
+            setAuthRead(true);
+            setAuth(true);
+            setConfirm(true);
+          } 
+          else {
+            alert("올바른 인증번호를 입력해주세요. ");
+          }
+        })
+  }
+
+  const signUpButton = () => {
+
+    const newBirth = birth.replace(/-/g, "")
+
+    let details = {
+      'email': email,
+      'password' : pw,
+      'name': name,
+      'gender' : sex,
+      'organization' :organization,
+      'job' : job,
+      'phone1': phone,
+      'birth' : newBirth
+    };
+    
+    //eslint-disable-next-line
+    fetch("http://13.125.122.151:9090" + "/signup-user", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(details)
+    })
+        .then(res => {
+          console.log(1, res)
+          //eslint-disable-next-line
+          if (res.status === 201) {
+            navigate('/sign/signup/done');
+          } 
+          else {
+            alert("Contact Us로 문의바랍니다. ");
           }
         })
   }
@@ -186,6 +305,7 @@ function SignUp() {
               <div className='signup_email_check_error'>
                 <div className="signup_inputbox">
                   <input
+                    readOnly = {check}
                     className="signup_input"
                     type="text"
                     placeholder=" test@gmail.com "
@@ -226,6 +346,7 @@ function SignUp() {
             <div className="signup_email_confirm_inputName">이메일 인증</div>
               <div className="signup_inputbox">
                 <input
+                  readOnly = {authRead}
                   value={authCode}
                   onChange={handleAuthCode}
                   className="signup_input"
@@ -235,10 +356,12 @@ function SignUp() {
               </div>
 
               <Button
+                disabled={confirm}
+                onClick={confirmButton}
                 type="submit" 
                 variant="contained"
                 sx={{
-                    backgroundColor:'#4ec6e1', 
+                    backgroundColor:'#7ccc46', 
                     whiteSpace: 'nowrap',
                     height: '4.5vh', 
                     width: '6.4vw', 
@@ -246,10 +369,12 @@ function SignUp() {
                     fontSize: '1vw',
                     fontWeight: 600,
                     ml: '1vw',
-                    '&:hover': {backgroundColor: '#6ba3af'}}}>
+                    '&:hover': {backgroundColor: '#7c9a67'}}}>
                 번호발송
               </Button>
               <Button
+                disabled={auth}
+                onClick={authButton}
                 type="submit" 
                 variant="contained"
                 sx={{
@@ -333,7 +458,7 @@ function SignUp() {
               <input
                 className="signup_input"
                 type="text"
-                placeholder=" 2~10자리 입력해주세요. "
+                placeholder=" 2글자 이상 입력해주세요. "
                 value={name}
                 onChange={handleName} 
                 />
@@ -406,19 +531,19 @@ function SignUp() {
                 />
             </div>
 
-            <div className="signup_inputName">직종</div>
+            <div className="signup_inputName">직책</div>
             <div className="signup_inputbox">
               <input
                   className="signup_input"
                   type="text"
-                  placeholder=" 교수, 학생, 무직 등 "
+                  placeholder=" 대리, 교수, 학생 등 "
                   value={job}
                   onChange={handleJob}
                   />
             </div>
             <div className="signup_errorMessageWrap">
             {!jobValid && job.length > 0 && (
-                <div>올바른 직종을 입력해주세요.</div>
+                <div>올바른 직책을 입력해주세요.</div>
             )}
             </div>
           </div>
@@ -442,6 +567,8 @@ function SignUp() {
         </Button>
 
         <Button
+          disabled= {complete}
+          onClick={signUpButton}
           type="submit" 
           variant="contained" 
           sx={{

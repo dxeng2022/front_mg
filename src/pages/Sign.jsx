@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import SignPolicy from "./SignPolicy.jsx";
 import SignUp from "./SignUp.jsx";
+import SignDone from "./SignDone.jsx";
 
 function Sign() {
 
@@ -14,8 +15,9 @@ function Sign() {
                 </div>
 
                 <Routes>
-                  <Route path="/" element={<SignPolicy />} />
-                  <Route path="/signup" element={<SignUp />} />
+                    <Route path="/" element={<SignPolicy />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/signup/done" element={<SignDone />} />
                 </Routes>
 
             </div>
