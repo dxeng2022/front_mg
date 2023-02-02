@@ -174,11 +174,10 @@ function SignUp() {
   const checkButton = () => {
 
     let details = {
-        'email': email,
+        'username': email,
     };
 
-    //eslint-disable-next-line
-    fetch("http://13.125.122.151:9090" + "/check-dupl", {
+    fetch("/check-dupl", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
@@ -187,12 +186,11 @@ function SignUp() {
     })
         .then(res => {
           console.log(1, res)
-          //eslint-disable-next-line
           if (res.status === 200) {
-            alert('사용 중인 이메일입니다. \n다른 이메일을 사용해주세요. ');
+            alert('사용 중인 이메일입니다.\n다른 이메일을 사용해주세요.');
           } 
           else {
-            alert("사용 가능한 이메일입니다. \n번호발송을 눌러 인증을 진행해주세요. ");
+            alert("사용 가능한 이메일입니다.\n번호발송을 눌러 인증을 진행해주세요.");
             setCheck(true);
             setConfirm(false);
             setNotAllow(true);
@@ -203,11 +201,10 @@ function SignUp() {
   const confirmButton = () => {
 
     let details = {
-        'email': email,
+        'username': email,
     };
 
-    //eslint-disable-next-line
-    fetch("http://13.125.122.151:9090" + "/signup-auth", {
+    fetch("/signup-auth", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
@@ -216,13 +213,12 @@ function SignUp() {
     })
         .then(res => {
           console.log(1, res)
-          //eslint-disable-next-line
           if (res.status === 200) {
-            alert('회원님의 이메일로 인증번호를 발송하였습니다. ');
+            alert('회원님의 이메일로 인증번호를 발송하였습니다.');
             setAuth(false);
           }
           else {
-            alert("ContactUs로 문의바랍니다. ");
+            alert("ContactUs로 문의바랍니다.");
           }
         })
   }
@@ -233,8 +229,7 @@ function SignUp() {
         'authCode': authCode,
     };
     
-    //eslint-disable-next-line
-    fetch("http://13.125.122.151:9090" + "/signup-authcheck", {
+    fetch("/signup-authcheck", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
@@ -243,15 +238,14 @@ function SignUp() {
     })
         .then(res => {
           console.log(1, res)
-          //eslint-disable-next-line
           if (res.status === 200) {
-            alert('이메일 인증이 완료되었습니다. ');
+            alert('이메일 인증이 완료되었습니다.');
             setAuthRead(true);
             setAuth(true);
             setConfirm(true);
           } 
           else {
-            alert("올바른 인증번호를 입력해주세요. ");
+            alert("올바른 인증번호를 입력해주세요.");
           }
         })
   }
@@ -261,18 +255,17 @@ function SignUp() {
     const newBirth = birth.replace(/-/g, "")
 
     let details = {
-      'email': email,
+      'username': email,
       'password' : pw,
       'name': name,
       'gender' : sex,
       'organization' :organization,
       'job' : job,
-      'phone1': phone,
+      'phone': phone,
       'birth' : newBirth
     };
     
-    //eslint-disable-next-line
-    fetch("http://13.125.122.151:9090" + "/signup-user", {
+    fetch("/signup-user", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
@@ -286,7 +279,7 @@ function SignUp() {
             navigate('/sign/signup/done');
           } 
           else {
-            alert("Contact Us로 문의바랍니다. ");
+            alert("Contact Us로 문의바랍니다.");
           }
         })
   }
@@ -536,7 +529,7 @@ function SignUp() {
               <input
                   className="signup_input"
                   type="text"
-                  placeholder=" 대리, 교수, 학생 등 "
+                  placeholder=" 대리, 교수, 학생 등등 "
                   value={job}
                   onChange={handleJob}
                   />

@@ -65,11 +65,11 @@ function FindEmail() {
 
         let details = {
             'name': name,
-            'phone1': phone,
+            'phone': phone,
             'birth' : newBirth
         };
 
-        fetch("http://13.125.122.151:9090" + "/find-mail", {
+        fetch("/find-mail", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"
@@ -84,7 +84,7 @@ function FindEmail() {
                     return null;
                 }
             })
-            .then(res => { // Catch는 여기서 오류가 나야 실행됨
+            .then(res => {
                 console.log("정상", res);
                 if (res !== null) {
                     setResUser(res);

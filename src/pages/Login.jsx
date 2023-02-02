@@ -46,7 +46,7 @@ function Login() {
     const onClickConfirmButton = () => {
 
         let details = {
-            'email': email,
+            'username': email,
             'password': pw,
         };
 
@@ -59,26 +59,25 @@ function Login() {
         formBody = formBody.join("&");
 
         console.log(formBody)
-        //eslint-disable-next-line
-        fetch("http://13.125.122.151:9090" + "/login", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
             },
             body: formBody,
         })
-            .then(res => {
-                console.log(1, res)
-                const form = res.url.substring(res.url.lastIndexOf(":"));
-                //eslint-disable-next-line
-                const url = form.slice(form.indexOf("/"));
-                if (res.status === 200) {
-                    alert('로그인에 성공했습니다.');
-                } 
-                else {
-                    alert("등록되지 않은 회원입니다.");
-                }
-            })
+        .then(res => {
+            console.log(1, res)
+            const form = res.url.substring(res.url.lastIndexOf(":"));
+            //eslint-disable-next-line
+            const url = form.slice(form.indexOf("/"));
+            if (res.status === 200) {
+                navigate('/module');
+            } 
+            else {
+                alert("등록되지 않은 회원입니다.");
+            }
+        })
     }
     
     

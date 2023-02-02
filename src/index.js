@@ -7,6 +7,7 @@ import './App.css';
 import './pages/Main.css';
 import './pages/Footer.css';
 import './pages/Sign.css';
+import './pages/Module.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

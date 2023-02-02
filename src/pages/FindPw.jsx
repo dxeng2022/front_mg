@@ -74,13 +74,13 @@ function FindPw() {
         const newBirth = birth.replace(/-/g, "")
 
         let details = {
-            'email': email,
+            'username': email,
             'name': name,
-            'phone1': phone,
+            'phone': phone,
             'birth' : newBirth
         };
 
-        fetch("http://13.125.122.151:9090" + "/find-pw", {
+        fetch("/find-pw", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"
@@ -89,7 +89,6 @@ function FindPw() {
         })
             .then(res => {
                 console.log(1, res)
-                //eslint-disable-next-line
                 if (res.status === 200) {
                     alert(' 회원님의 이메일로 임시비밀번호를 발송했습니다. ');
                 } 
