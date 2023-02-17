@@ -265,7 +265,7 @@ function SignUp() {
       'birth' : newBirth
     };
     
-    fetch("/signup-user", {
+    fetch("/api/user", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
